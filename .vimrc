@@ -1,7 +1,3 @@
-"------------------------------------------------------------------------
-" < other >
-"------------------------------------------------------------------------
-
 if has("win32")
     set nocompatible
     source $VIMRUNTIME/vimrc_example.vim
@@ -11,7 +7,7 @@ endif
 
 call pathogen#infect()
 syntax on
-filetype plugin indent on
+filetype plugin indent on 
 
 set nu
 set tabstop=4
@@ -19,32 +15,41 @@ set hlsearch
 set incsearch
 set shiftwidth=4
 set autoindent
+set autowrite
 set expandtab
 set mouse=a
+set foldmethod=marker
 set writebackup
-
 syntax enable
 set nocp
 set background=dark
 colorscheme solarized
 
-" tags settting
-" set tags=tags;
-" set autochdir
-
+let g:instant_markdown_slow=1
+let g:instant_markdown_autostart =1
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let NERDTreeChristmasTree=1
 let NERDTreeMouseMode=2
 let NERDTreeHighlightCursorline=0
 let NERDCompactSexyComs=1
 let NERDSpaceDelims=1
 let NERDTreeShowBookmarks=1
-
 "nmap <C-h> <C-w>h
 "nmap <C-j> <C-w>j
 "nmap <C-k> <C-w>k
 "nmap <C-l> <C-w>l
-
+"multi set
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end  " Auto Exit
+" html indent  
+filetype indent on   
+let g:html_indent_inctags = "body,head,tbody"   " 缩进body head  
+" let g:html_indent_script1 = "inc"     " 缩进<script>标签  
+" let g:html_indent_style1 = "inc"      " 缩进<style>标签 
 
 " NERDCommand
 let mapleader=","
@@ -55,7 +60,7 @@ map <F2> :silent! NERDTreeToggle<CR>
 map <F3> :silent! TagbarToggle<CR>
 
 " FulCoverageFile
-map <F4> :silent! FufCoverageFile<CR>
+"map <F4> :silent! FufCoverageFile<CR>
 
 " NerdTree Book Mark
 map <F5> :Bookmark <CR>
@@ -90,7 +95,7 @@ set cscopequickfix=s-,c-,d-,i-,t-,e-
 set cscopetag 
 set csto=1
 if filereadable("cscope.out")  
-  cs add cscope.out
+    cs add cscope.out
 endif
 set cscopeverbose
 map <C-g>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>      
@@ -110,11 +115,11 @@ au FocusGained * :set relativenumber
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
+ if(&relativenumber == 1)
+  set number
+else
+ set relativenumber
+endif
 endfunc
 nnoremap <C-r> :call NumberToggle()<cr>
 
@@ -142,6 +147,15 @@ let g:solarized_diffmode="normal"
 let g:solarized_hitrail=0
 let g:solarized_menu=1
 
+
+au BufNewFile,BufRead *.py
+\ set tabstop=4
+\ set softtabstop=4
+\ set shiftwidth=4
+\ set textwidth=79
+\ set expandtab
+\ set autoindent
+\ set fileformat=unix
 
 " =============================================================================
 "                            << 设置快捷键映射 >>
@@ -215,68 +229,43 @@ else
 endif
 
 " 使用Vundle来管理Vundle，这个必须要有。
-Bundle 'gmarik/vundle'
+Bundle 'VundleVim/Vundle.vim'
 
 " 以下为要安装或更新的插件，不同仓库都有（具体书写规范请参考帮助）
 Bundle 'xml.vim'
-"Bundle 'a.vim'
 Bundle 'Align'
 Bundle 'jiangmiao/auto-pairs'
-"Bundle 'yegappan/grep'
 Bundle 'mileszs/ack.vim'
 Bundle 'dyng/ctrlsf.vim'
-"Bundle 'ccvext.vim'
 Bundle 'Yggdroot/indentLine'
-"Bundle 'Mark--Karkat'
-"Bundle 'Shougo/neocomplcache.vim'
 Bundle 'Shougo/neocomplete'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
-"Bundle 'OmniCppComplete'
 Bundle 'Lokaltog/vim-powerline'
-"Bundle 'msanders/snipmate.vim'
-"Bundle 'wesleyche/SrcExpl'
-"Bundle 'std_c.zip'
-"Bundle 'tpope/vim-surround'
-"Bundle 'scrooloose/syntastic'
+Bundle 'Konfekt/FastFold'
 Bundle 'vim-scripts/indexer.tar.gz'
 Bundle 'DfrankUtil'
 Bundle 'vimprj'
+Bundle 'suan/vim-instant-markdown'
 Bundle 'majutsushi/tagbar'
-"Bundle 'ZoomWin'
-"Bundle 'tpope/vim-markdown'
-"Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'fholgado/minibufexpl.vim'
-"Plugin 'shawncplus/phpcomplete.vim'
-"Bundle 'ctrlpvim/ctrlp.vim'
-" Bundle 'cSyntaxAfter'
-" Bundle 'javacomplete'
-" Bundle 'vim-javacompleteex'               "更好的 Java 补全插件
-" Bundle 'mattn/emmet-vim'
-" Bundle 'fholgado/minibufexpl.vim'         "好像与 Vundle 插件有一些冲突
-" Bundle 'Shougo/neocomplcache.vim'
-" Bundle 'repeat.vim'
-" Bundle 'ervandew/supertab'                "有时与 snipmate 插件冲突
-" Bundle 'taglist.vim'
-" Bundle 'TxtBrowser'
-" Bundle 'Valloric/YouCompleteMe'
-" Plugin 'exvim/ex-minibufexpl'                "exvim插件之一。修复BUG
-
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'vim-scripts/indentpython.vim'
+"Bundle 'Valloric/YouCompleteMe'
 
 " =============================================================================
 "        << 界面&主题配置 >>
 " =============================================================================
 " 设置代码配色方案
 if g:isGUI
-     "colorscheme solarized
-     colorscheme molokai 
-   set background=dark
+    "colorscheme solarized
+    colorscheme molokai 
+    set background=dark
 else
-     "colorscheme molokai
-     colorscheme gruvbox
-     set background=dark
+    "colorscheme molokai
+    colorscheme gruvbox
+    set background=dark
 endif
-
 " 显示/隐藏菜单栏、工具栏、滚动条，可用 Ctrl + F11 切换
 if g:isGUI
     set guioptions-=m
@@ -284,16 +273,16 @@ if g:isGUI
     set guioptions-=r
     set guioptions-=L
     map <silent> <c-F11> :if &guioptions =~# 'm' <Bar>
-        \set guioptions-=m <Bar>
-        \set guioptions-=T <Bar>
-        \set guioptions-=r <Bar>
-        \set guioptions-=L <Bar>
-    \else <Bar>
-        \set guioptions+=m <Bar>
-        \set guioptions+=T <Bar>
-        \set guioptions+=r <Bar>
-        \set guioptions+=L <Bar>
-    \endif<CR>
+                \set guioptions-=m <Bar>
+                \set guioptions-=T <Bar>
+                \set guioptions-=r <Bar>
+                \set guioptions-=L <Bar>
+                \else <Bar>
+                \set guioptions+=m <Bar>
+                \set guioptions+=T <Bar>
+                \set guioptions+=r <Bar>
+                \set guioptions+=L <Bar>
+                \endif<CR>
 endif
 
 set guifont=YaHei\ Consolas\ Hybrid\ 12               "设置 gvim 显示字体
@@ -302,11 +291,10 @@ set laststatus=2                                      "启用状态栏信息
 set cmdheight=2                                       "设置命令行的高度为2，默认为1
 set ruler                                             "显示光标当前位置
 set cursorline                                        "高亮显示当前行/列
-"set cursorcolumn
 set nofoldenable                                      "不启用折叠
 set nowrap                                            "设置不自动换行
 set shortmess=atI                                     "去掉欢迎界面
-"set gcr=a:block-blinkon0                             "禁止光标闪烁
+set gcr=a:block-blinkon0                             "禁止光标闪烁
 set hlsearch                                          "高亮显示搜索结果
 
 
@@ -342,8 +330,8 @@ set tabstop=4                                         "设置Tab键的宽度
 set shiftwidth=4                                      "换行时自动缩进4个空格
 set shiftwidth=4                                      "设置格式化时制表符占用空格数
 set smarttab                                          "指定按一次backspace就删除shiftwidth宽度的空格
-"set foldmethod=indent                                "indent 折叠方式
-set foldmethod=syntax                                 "syntax 折叠方式
+set foldmethod=indent                                "indent 折叠方式
+"set foldmethod=syntax                                 "syntax 折叠方式
 set wildmenu                                          "vim 自身命令行模式智能补全
 set ignorecase                                        "搜索模式里忽略大小写
 set smartcase                                         "如果搜索模式包含大写字符，不使用 'ignorecase' 选项，只有在输入搜索模式并且打开 'ignorecase' 选项时才会使用
@@ -359,13 +347,14 @@ else
 endif
 
 " 用空格键来开关折叠
-" nnoremap <Leader><space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+nnoremap <Leader><space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 
 " 当文件在外部被修改，自动更新该文件
 set autoread
 
 " 常规模式下输入 cS 清除行尾空格
-nmap cS :%s/\s\+$//g<CR>:noh<CR>
+"nmap cS :%s/\s\+$//g<CR>:noh<CR>
+nmap cS :g/^s*$/d<CR>:noh<CR>
 
 " 常规模式下输入 cM 清除行尾 ^M 符号
 nmap cM :%s/\r$//g<CR>:noh<CR>
@@ -442,33 +431,33 @@ endfunction
 
 "-------------------------版权信息------------------------
 function CopyRight(type, position) 
-	let author = "wangtengtao_iwm <wangtengtao@iwaimai.baidu.com>"
+    let author = "kaleo <kaleo1990@hotmail.com>"
     if a:position == 'curr'
         let line_num = line(".")
     else
         let line_num = 0
     endif
     if a:type == "phpfile" 
-		call setline(line_num,"<?php")
-		call append(line_num+0,"<?php")
+        call setline(line_num,"<?php")
+        call append(line_num+0,"<?php")
         call append(line_num+1,"/** =============================================================================") 
         call append(line_num+2," * @name ".expand("%:t")) 
         call append(line_num+3," * @date date ".strftime("%c")) 
         call append(line_num+4," * @author ".author) 
         call append(line_num+5," * @package ") 
-		call append(line_num+6," * =============================================================================")
+        call append(line_num+6," * =============================================================================")
         call append(line_num+7," */") 
-	elseif a:type == "file"
-		call setline(line_num,"")
+    else
+        if a:type == "file"
+        call setline(line_num,"")
         call append(line_num+0,"/** =============================================================================") 
         call append(line_num+1," * @name ".expand("%:t")) 
         call append(line_num+2," * @date date ".strftime("%c")) 
         call append(line_num+3," * @author ".author) 
         call append(line_num+4," * @package ") 
-		call append(line_num+5," * =============================================================================")
+        call append(line_num+5," * =============================================================================")
         call append(line_num+6," */") 
-    else 
-        if a:type == "func" 
+    elseif a:type == "func" 
             call setline(line_num," /**") 
             call append(line_num+0," * @access ") 
             call append(line_num+1," * @author ".author) 
@@ -640,14 +629,14 @@ let g:indentLine_color_term = 239
 "------------------------------------------------------------------------
 " < neocomplete >
 "------------------------------------------------------------------------
-let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_at_startup = 0
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType html,js,javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType js,javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
@@ -657,6 +646,42 @@ autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
 " =============================================================================
 "                          << autocmd >>
 " =============================================================================
-" autocmd VimEnter * call ToggleFullscreen()                " 启动 vim 时自动全屏
+"autocmd VimEnter * call ToggleFullscreen()                " 启动 vim 时自动全屏
 autocmd VimEnter * set nu
 autocmd BufNewFile *.php call CopyRight("phpfile","0")
+map <F4> :call TitleDet()<cr>
+function AddTitle()
+    call append(0,"\#!/usr/bin/env bash")
+    call append(1,"# ******************************************************")
+    call append(2,"# Author       : kaleo")
+    call append(3,"# Last modified: ".strftime("%Y-%m-%d %H:%M"))
+    call append(4,"# Email        : kaleo1990@hotmail.com")
+    call append(5,"# Filename     : ".expand("%:t"))
+    call append(6,"# Description  : ")
+    call append(7,"# ******************************************************")
+    echohl WarningMsg | echo "Successful in adding copyright." | echohl None
+endf
+
+function UpdateTitle()
+    normal m'
+    execute '/# Last modified/s@:.*$@\=strftime(":\t%Y-%m-%d %H:%M")@'
+    normal ''
+    normal mk
+    execute '/# Filename/s@:.*$@\=":\t".expand("%:t")@'
+    execute "noh"
+    normal 'k
+    echohl WarningMsg | echo "Successful in updating the copyright." | echohl None
+endfunction
+
+function TitleDet()
+    let n=1
+    while n < 10
+        let line = getline(n)
+        if line =~ '^\#\s*\S*Last\smodified\S*.*$'
+            call UpdateTitle()
+            return
+        endif
+        let n = n + 1
+    endwhile
+    call AddTitle()
+endfunction
