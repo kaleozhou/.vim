@@ -1,5 +1,3 @@
-#vimToIDE
-
 ##目标
     让VIM有IDE的效果
     
@@ -10,10 +8,7 @@
     5. 自动补全
     6. 查找、替换
     
-###效果图
- ![image](https://github.com/wming3/.vimToIDE/tree/master/image/vim_view.png)
  
- 如果加载不出来, [请参考我的博客](http://blog.csdn.net/u010187139/article/details/50015339)上的图片
 ##安装
 ###版本要求
 
@@ -22,7 +17,7 @@
 
 ###安装 步骤
 
-    git clone https://github.com/wming3/.vimToIDE.git  ~/.vim
+    git clone https://git@github.com:kaleozhou/.vim.git  ~/.vim
 
     cd ~/.vim
 
@@ -151,6 +146,3 @@
     状态栏增强插件
 
 
-博客地址: http://blog.csdn.net/u010187139/article/details/50015339
-
-参考地址: http://wiki.baidu.com/pages/viewpage.action?pageId=137577394
