@@ -17,7 +17,7 @@
 
 ###安装 步骤
 
-    git clone https://git@github.com:kaleozhou/.vim.git  ~/.vim
+    git clone git@github.com:kaleozhou/.vim.git  ~/.vim
 
     cd ~/.vim
 
